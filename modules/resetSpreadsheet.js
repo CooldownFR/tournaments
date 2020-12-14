@@ -61,6 +61,8 @@ module.exports = class ResetSpreadsheet{
             //Reset of final
             let cellNameFinal = standingSheet.getCell(line+106, 3)
             cellNameFinal.value = ""
+            let cellScoreFinal = standingSheet.getCell(line+93, 5)
+            cellScoreFinal.value = ""
             let cellScore32Final = standingSheet.getCell(line+106, 5)
             cellScore32Final.value = ""
             let cellScore16Final = standingSheet.getCell(line+106, 6)
