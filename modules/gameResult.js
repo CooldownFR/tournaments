@@ -56,7 +56,12 @@ module.exports = class GameResult{
         let line = lineColumnByGame.get(matchNb).line
 
         //Get first summoner name of the match
-        const cellSummonerName = sheet.getCell(line, column)
+        let cellSummonerName
+        let cptSummonerName = 0
+        do{
+            cellSummonerName = sheet.getCell(line + cptSummonerName, column)
+            cptSummonerName++
+        }while(cellSummonerName.value.match(/[^ -~]/))
 
         let players = new Array()
         try{
