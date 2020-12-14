@@ -1,0 +1,86 @@
+const Battlefy = require('battlefy-api')
+
+/**
+ * This module is create to ask datas to Battlefy to know which player are checked in or not
+ */
+module.exports = class CheckedIn{
+
+    /**
+     * Ask datas to Battlefy and then insert it in the doc
+     * @param {*} doc 
+     */
+    static async importFromBattlefy(doc){
+        console.log(`ENTER: importFromBattlefy()`)
+
+        //Load document
+        await doc.loadInfo()
+        const checkInSheet = doc.sheetsByTitle["Participants"]
+        await checkInSheet.loadCells()
+
+        //Get tournament id
+        const cellId = checkInSheet.getCell(0, 6)
+        const id = cellId.value
+
+        let playersChecked = new Array()
+        let playersNoCheck = new Array()
+
+        try{
+            //Ask for battlfy datas of the tournament
+            const datas = await Battlefy.getTournamentTeams(id)
+
+            //Check if the players are checked in or not
+            for await(let data of datas){
+                if(data.checkedInAt){
+                    playersChecked.push({riotName:data.players[0].inGameName, discordName: data.customFields[0].value})
+                }else{
+                    playersNoCheck.push({riotName:data.players[0].inGameName, discordName: data.customFields[0].value})
+                }
+            }
+        }catch(err){
+            console.log("LOG: No tournament ID specified")
+        }
+
+        //Place players in the checkin column one by one
+        let cpt = 2
+        for await(let player of playersChecked){
+            let cellRiot = checkInSheet.getCell(cpt, 0)
+            let cellDiscord = checkInSheet.getCell(cpt, 1)
+            cellRiot.value = player.riotName
+            cellDiscord.value = player.discordName
+            cpt++
+        }
+
+        //Place players in the non-checkin column one by one
+        cpt = 2
+        for await(let player of playersNoCheck){
+            let cellRiot = checkInSheet.getCell(cpt, 2)
+            let cellDiscord = checkInSheet.getCell(cpt, 3)
+            cellRiot.value = player.riotName
+            cellDiscord.value = player.discordName
+            cpt++
+        }
+        //Save updated document
+        await checkInSheet.saveUpdatedCells()
+
+        console.log(`EXIT: importFromBattlefy()`)
+        return playersChecked
+    }
+
+    static async canCheckIn(doc){
+        console.log(`ENTER: canCheckIn()`)
+
+        //Load document
+        await doc.loadInfo()
+        const checkInSheet = doc.sheetsByTitle["Participants"]
+        await checkInSheet.loadCells()
+
+        //Get tournament id
+        const cellId = checkInSheet.getCell(0, 6)
+        if(!cellId.value){
+            console.log("LOG: No tournament ID specified")
+        }
+
+        console.log(`EXIT: canCheckIn()`)
+        return cellId.value
+    }
+}
