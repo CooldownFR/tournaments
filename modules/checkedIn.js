@@ -40,8 +40,29 @@ module.exports = class CheckedIn{
             console.log("LOG: No tournament ID specified")
         }
 
-        //Place players in the checkin column one by one
+        //Reset spreadsheet
+        let endOfLoop = false
         let cpt = 2
+        //Reset of participants
+        do{
+            let cellNameIn = checkInSheet.getCell(cpt, 0)
+            let cellDiscIn = checkInSheet.getCell(cpt, 1)
+            let cellNameNo = checkInSheet.getCell(cpt, 2)
+            let cellDiscNo = checkInSheet.getCell(cpt, 3)
+            if(!cellNameIn.value && !cellNameNo.value){
+                endOfLoop = true
+            }
+
+            cellNameIn.value = ""
+            cellDiscIn.value = ""
+            cellNameNo.value = ""
+            cellDiscNo.value = ""
+
+            cpt++
+        }while(!endOfLoop)
+
+        //Place players in the checkin column one by one
+        cpt = 2
         for await(let player of playersChecked){
             let cellRiot = checkInSheet.getCell(cpt, 0)
             let cellDiscord = checkInSheet.getCell(cpt, 1)
