@@ -31,47 +31,18 @@ function getBetterPos(player){
 }
 
 /**
- * This method will check if two arrays have the same order of elements
- */
-Array.prototype.equals = function(other){
-    //Check number of element
-    if(this.length != other.length) return false
-
-    let ret = true
-    //Check if elements are equivalent
-    for(let i=0 ; i<this.length ; i++){
-        if(this[i] != other[i]){
-            ret = false
-        }
-    }
-
-    return ret
-}
-
-/**
  * This method will reorganize the array by checking the better pos at first then the pos2 and then randomize it
  */
 Array.prototype.reorder = function(){
     this.shuffle()
-    let copy = this.slice()
     //Order by pos2
-    copy.sort(function(a, b){
-        return b.pos2 - a.pos2
-    })
     this.sort(function(a, b){
         return a.pos2 - b.pos2
     })
     //Check better pos
-    copy.sort(function(a, b){
-        return getBetterPos(a) - getBetterPos(b)
-    })
     this.sort(function(a, b){
         return getBetterPos(b) - getBetterPos(a)
     })
-
-    if(this.equals(copy)){
-        this.shuffle()
-    }
 }
 
 /**
