@@ -165,7 +165,7 @@ bot.on('message', async function(message){
  */
 bot.on("messageReactionAdd", async function(reaction, user){
     //Check if the reaction is on the good message and if its actualy a real user
-    if(reaction.message.id != messageGestion.id || user.id == bot.user.id) return
+    if(!messageGestion || reaction.message.id != messageGestion.id || user.id == bot.user.id) return
 
     //Remove this one reaction
     reaction.message.reactions.resolve(reaction.emoji.name).users.remove(user.id)
