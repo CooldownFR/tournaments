@@ -36,12 +36,10 @@ const cron = require('node-cron')
  */
 const basicConsole = console.log
 Date.prototype.format = function(){
-    function addDigit(number){
-        return number > 9 ? number : `0${number}`
-    }
-    const date = `${addDigit(this.getDate())}/${addDigit(this.getMonth()+1)}/${this.getFullYear()}`
-    const hour = `${addDigit(this.getHours())}:${addDigit(this.getMinutes())}:${addDigit(this.getSeconds())}`
-    return `${date} ${hour}`
+    return this.toLocaleDateString('fr-FR', { 'timeZone': 'Europe/Paris', 
+        'day': '2-digit', 'month': '2-digit', 'year': 'numeric', 
+        'hour': '2-digit', 'minute': '2-digit', 'second': '2-digit', 'hour12': false 
+    }).replace(', ', ' - ')
 }
 console.log = function(){
     const date = `[${new Date().format()}]:`
