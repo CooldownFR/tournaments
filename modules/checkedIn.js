@@ -1,6 +1,15 @@
 const Battlefy = require('battlefy-api')
 
 /**
+ * This method will organize the array by putting player who checkedin first at the beggining
+ */
+Array.prototype.orderByDate = function(){
+    this.sort(function(a, b){
+        return new Date(a.checkIn) - new Date(b.checkIn)
+    })
+}
+
+/**
  * This module is create to ask datas to Battlefy to know which player are checked in or not
  */
 module.exports = class CheckedIn{
@@ -31,11 +40,12 @@ module.exports = class CheckedIn{
             //Check if the players are checked in or not
             for await(let data of datas){
                 if(data.checkedInAt){
-                    playersChecked.push({riotName:data.players[0].inGameName, discordName: data.customFields[0].value})
+                    playersChecked.push({riotName:data.players[0].inGameName, discordName: data.customFields[0].value, checkIn: data.checkedInAt})
                 }else{
                     playersNoCheck.push({riotName:data.players[0].inGameName, discordName: data.customFields[0].value})
                 }
             }
+            playersChecked.orderByDate()
         }catch(err){
             console.log("LOG: No tournament ID specified")
         }

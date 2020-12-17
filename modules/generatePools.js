@@ -58,6 +58,8 @@ module.exports = class GeneratePools{
     static async generateInit(doc, players){
         console.log(`ENTER: generateInit()`)
 
+        //Only keep the first 32 players
+        players.splice(32)
         //Determine the number of pools
         const nbPools = Math.round(players.length/8)
         //Randomize order of the players
