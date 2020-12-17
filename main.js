@@ -32,6 +32,24 @@ bot.login(process.env.DISCORD_TOKEN_COOLDOWN)
 const cron = require('node-cron')
 
 /**
+ * Replace basic console to add date and hour
+ */
+const basicConsole = console.log
+Date.prototype.format = function(){
+    function addDigit(number){
+        return number > 9 ? number : `0${number}`
+    }
+    const date = `${addDigit(this.getDay())}/${addDigit(this.getMonth())}/${this.getFullYear()}`
+    const hour = `${addDigit(this.getHours())}:${addDigit(this.getMinutes())}:${addDigit(this.getSeconds())}`
+    return `${date} ${hour}`
+}
+console.log = function(){
+    const date = `[${new Date().format()}]:`
+    Array.prototype.unshift.call(arguments, date)
+    basicConsole.apply(this, arguments)
+}
+
+/**
  * Some const for IDs in discord
  */
 const channelsId = {
