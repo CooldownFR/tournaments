@@ -39,7 +39,7 @@ Date.prototype.format = function(){
     function addDigit(number){
         return number > 9 ? number : `0${number}`
     }
-    const date = `${addDigit(this.getDay())}/${addDigit(this.getMonth())}/${this.getFullYear()}`
+    const date = `${addDigit(this.getDate())}/${addDigit(this.getMonth()+1)}/${this.getFullYear()}`
     const hour = `${addDigit(this.getHours())}:${addDigit(this.getMinutes())}:${addDigit(this.getSeconds())}`
     return `${date} ${hour}`
 }
