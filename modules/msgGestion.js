@@ -67,7 +67,7 @@ module.exports = class MsgGestion{
             .setTitle(`Cooldown TFT Cup - ${phases.get(phase).name}`)
             .setColor("#008cff")
             .setURL("https://docs.google.com/spreadsheets/d/15xow2CpBy9Q5MZuDEarpQX88G-teRRpVoqV3x3lMzzs")
-            .setThumbnail("https://pbs.twimg.com/profile_images/1076249303604170757/Dbc3Qhof_400x400.jpg")
+            .setThumbnail("https://static-cdn.jtvnw.net/jtv_user_pictures/b387ebe0-4dd8-4430-aab5-e91a1486a20c-profile_image-300x300.png")
             .setTimestamp()
         
         let textToAdd = ""

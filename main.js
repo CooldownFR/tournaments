@@ -7,7 +7,8 @@ const CheckedIn = require('./modules/checkedIn.js')
 const GeneratePools = require('./modules/generatePools.js')
 const GameResult = require('./modules/gameResult.js')
 const MsgGestion = require('./modules/msgGestion.js')
-const ResetSpreadsheet = require('./modules/resetSpreadsheet')
+const ResetSpreadsheet = require('./modules/resetSpreadsheet.js')
+const MsgNotif = require('./modules/msgNotif.js')
 
 /** 
  * GoogleSpreadsheet module and doc authentification
@@ -89,6 +90,8 @@ async function startTournament(channel){
     //If there is a tournament ID
     if(!await CheckedIn.canCheckIn(doc)) return
 
+    MsgNotif.generateCheckInMessage(bot, doc)
+
     //Reset the variables
     phaseNb = 0
     matchChecked = new Array()
@@ -148,7 +151,7 @@ bot.on('message', async function(message){
             .setTitle(`Cooldown TFT Cup - Help`)
             .setColor("#008cff")
             .setURL("https://docs.google.com/spreadsheets/d/15xow2CpBy9Q5MZuDEarpQX88G-teRRpVoqV3x3lMzzs")
-            .setThumbnail("https://pbs.twimg.com/profile_images/1076249303604170757/Dbc3Qhof_400x400.jpg")
+            .setThumbnail("https://static-cdn.jtvnw.net/jtv_user_pictures/b387ebe0-4dd8-4430-aab5-e91a1486a20c-profile_image-300x300.png")
             .setDescription(
                 "`/tournoi-start` pour démarrer le tournoi\n"
                 + "`/tournoi-checkin` pour lancer un checkin manuel\n"
@@ -194,7 +197,8 @@ bot.on("messageReactionAdd", async function(reaction, user){
         //This arrow is used when we do a phase changement
         if(phaseNb == 0){
             //Generate the initial pools and remove the auto-checkin
-            GeneratePools.generateInit(doc, players)
+            await GeneratePools.generateInit(doc, players)
+            MsgNotif.generatePoolsMessage(bot, doc)
             clearInterval(checkInLoop)
         }else if(phaseNb == 1){
             //Generate the demis
