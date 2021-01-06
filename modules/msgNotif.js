@@ -33,13 +33,14 @@ module.exports = class MsgNotif{
     static async generateCheckInMessage(bot, doc){
         const id = await getBattlefyId(doc)
         const datas = await Battlefy.getTournamentData(id)
+        const url = `https://battlefy.com/cooldowntv/${datas.slug}/${id}/info`
         const embed = new Discord.MessageEmbed()
             .setTitle(datas.name)
             .setColor("#008bff")
-            .setURL(`https://battlefy.com/cooldowntv/${datas.slug}/${id}/info`)
+            .setURL(url)
             .setThumbnail("https://static-cdn.jtvnw.net/jtv_user_pictures/b387ebe0-4dd8-4430-aab5-e91a1486a20c-profile_image-300x300.png")
-            .setDescription("Le Check-in est maintenant ouvert sur Battlefy.\n*(cliquez sur le titre pour accéder au lien)*\n\n"
-                            + "Check-in is now open on Battlefy.\n*(click on title to access the link)*")
+            .setDescription(`Le Check-in est maintenant ouvert sur Battlefy.\n*[lien](${url})*\n\n`
+                            + `Check-in is now open on Battlefy.\n*[link](${url})*`)
         
         bot.channels.cache.get(channelsId.tournois).send(embed)
         bot.channels.cache.get(channelsId.tftFlood).send(embed)
@@ -53,13 +54,14 @@ module.exports = class MsgNotif{
     static async generatePoolsMessage(bot, doc){
         const id = await getBattlefyId(doc)
         const datas = await Battlefy.getTournamentData(id)
+        const url = "https://docs.google.com/spreadsheets/d/15xow2CpBy9Q5MZuDEarpQX88G-teRRpVoqV3x3lMzzs"
         const embed = new Discord.MessageEmbed()
             .setTitle(datas.name)
             .setColor("#008bff")
-            .setURL("https://docs.google.com/spreadsheets/d/15xow2CpBy9Q5MZuDEarpQX88G-teRRpVoqV3x3lMzzs")
+            .setURL(url)
             .setThumbnail("https://static-cdn.jtvnw.net/jtv_user_pictures/b387ebe0-4dd8-4430-aab5-e91a1486a20c-profile_image-300x300.png")
-            .setDescription("Les poules sont générées.\n*(cliquez sur le titre pour accéder au lien)*\n\n"
-                            + "Pools are generated.\n*(click on title to access the link)*")
+            .setDescription(`Les poules sont générées.\n*[lien](${url})*\n\n`
+                            + `Pools are generated.\n*[link](${url})*`)
         
         bot.channels.cache.get(channelsId.tournois).send(embed)
         bot.channels.cache.get(channelsId.tftFlood).send(embed)
