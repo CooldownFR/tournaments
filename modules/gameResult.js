@@ -27,7 +27,7 @@ lineColumnByGame.set(13, {line:93, column:3,    name: "Final"})
  */
 Array.prototype.getByName = function(playerName){
     for(player of this){
-        if(player.name == playerName){
+        if(player.name.toLowerCase() == playerName.toLowerCase()){
             return player
         }
     }
