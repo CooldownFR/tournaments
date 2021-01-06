@@ -149,7 +149,7 @@ bot.on('message', async function(message){
     if(message.content == "/tournoi-help"){
         let help = new Discord.MessageEmbed()
             .setTitle(`Cooldown TFT Cup - Help`)
-            .setColor("#008cff")
+            .setColor("#008bff")
             .setURL("https://docs.google.com/spreadsheets/d/15xow2CpBy9Q5MZuDEarpQX88G-teRRpVoqV3x3lMzzs")
             .setThumbnail("https://static-cdn.jtvnw.net/jtv_user_pictures/b387ebe0-4dd8-4430-aab5-e91a1486a20c-profile_image-300x300.png")
             .setDescription(

@@ -35,7 +35,7 @@ module.exports = class MsgNotif{
         const datas = await Battlefy.getTournamentData(id)
         const embed = new Discord.MessageEmbed()
             .setTitle(datas.name)
-            .setColor("#008cff")
+            .setColor("#008bff")
             .setURL(`https://battlefy.com/cooldowntv/${datas.slug}/${id}/info`)
             .setThumbnail("https://static-cdn.jtvnw.net/jtv_user_pictures/b387ebe0-4dd8-4430-aab5-e91a1486a20c-profile_image-300x300.png")
             .setDescription("Le Check-in est maintenant ouvert sur Battlefy.\n*(cliquez sur le titre pour accéder au lien)*\n\n"
@@ -55,7 +55,7 @@ module.exports = class MsgNotif{
         const datas = await Battlefy.getTournamentData(id)
         const embed = new Discord.MessageEmbed()
             .setTitle(datas.name)
-            .setColor("#008cff")
+            .setColor("#008bff")
             .setURL("https://docs.google.com/spreadsheets/d/15xow2CpBy9Q5MZuDEarpQX88G-teRRpVoqV3x3lMzzs")
             .setThumbnail("https://static-cdn.jtvnw.net/jtv_user_pictures/b387ebe0-4dd8-4430-aab5-e91a1486a20c-profile_image-300x300.png")
             .setDescription("Les poules sont générées.\n*(cliquez sur le titre pour accéder au lien)*\n\n"
