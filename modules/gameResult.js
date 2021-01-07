@@ -27,7 +27,7 @@ lineColumnByGame.set(13, {line:93, column:3,    name: "Final"})
  */
 Array.prototype.getByName = function(playerName){
     for(player of this){
-        if(player.name.toLowerCase() == playerName.toLowerCase()){
+        if(encodeURI(player.name.toLowerCase()) == encodeURI(playerName.toLowerCase())){
             return player
         }
     }
@@ -56,17 +56,12 @@ module.exports = class GameResult{
         let line = lineColumnByGame.get(matchNb).line
 
         //Get first summoner name of the match
-        let cellSummonerName
-        let cptSummonerName = 0
-        do{
-            cellSummonerName = sheet.getCell(line + cptSummonerName, column)
-            cptSummonerName++
-        }while(cellSummonerName.value.match(/[^ -~]/))
+        let cellSummonerName = sheet.getCell(line, column)
 
         let players = new Array()
         try{
             //Get last match datas of the first summoner of the match
-            const matchId = await tft.Match.matchesByName(cellSummonerName.value, 1)
+            const matchId = await tft.Match.matchesByName(encodeURI(cellSummonerName.value), 1)
             const matchData = await tft.Match.matchesByMatchId(matchId[0])
     
             //Get names of all summoners in the match
