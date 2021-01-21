@@ -73,15 +73,17 @@ module.exports = class GameResult{
         }catch(err){}
         
         //Place placement corresponding to the player
-        for(let i=0 ; i<8 ; i++){
-            const cellName = sheet.getCell(line + i, column)
-            let cellScore = sheet.getCell(line + i, column + 2)
-            if(players.getByName(cellName.value)){
-                cellScore.value = players.getByName(cellName.value).score
+        if(players.length > 0){
+            for(let i=0 ; i<8 ; i++){
+                const cellName = sheet.getCell(line + i, column)
+                let cellScore = sheet.getCell(line + i, column + 2)
+                if(cellName.value && players.getByName(cellName.value)){
+                    cellScore.value = players.getByName(cellName.value).score
+                }
             }
+            //Save updated document
+            await sheet.saveUpdatedCells()
         }
-        //Save updated document
-        await sheet.saveUpdatedCells()
 
         console.log(`EXIT: importByMatch()`)
         return lineColumnByGame.get(matchNb).name
