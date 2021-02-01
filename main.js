@@ -67,6 +67,7 @@ let checkInLoop = null
 let phaseNb = 0
 let players = new Array()
 let matchChecked = new Array()
+let matchIdChecked = new Array()
 
 /**
  * Event triggered when the bot is logged in
@@ -94,9 +95,10 @@ async function startTournament(channel){
 
     //Reset the variables
     phaseNb = 0
-    matchChecked = new Array()
     players = new Array()
-    
+    matchChecked = new Array()
+    matchIdChecked = new Array()
+
     //Reset the spreadsheet to have empty frames
     ResetSpreadsheet.reset(doc)
 
@@ -127,11 +129,12 @@ async function startTournament(channel){
  */
 async function getMatch(message, matchNb){
     //Get match result from Riot API
-    const match = await GameResult.importByMatch(doc, matchNb)
+    const response = await GameResult.importByMatch(doc, matchNb, matchIdChecked)
+    matchIdChecked = response.list
     //Add the match to the list of read's matches
     matchChecked.push(matchNb)
     //Edit the footer of the discord message to prevents users that the task has ended
-    MsgGestion.editMessageFooter(message, `${match} Ok !`)
+    MsgGestion.editMessageFooter(message, `${response.name} Ok !`)
 }
 
 /**

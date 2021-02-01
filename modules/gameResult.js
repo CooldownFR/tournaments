@@ -43,7 +43,7 @@ module.exports = class GameResult{
      * @param {*} doc 
      * @param {*} matchNb 
      */
-    static async importByMatch(doc, matchNb){
+    static async importByMatch(doc, matchNb, matchIdChecked){
         console.log(`ENTER: importByMatch(${matchNb})`)
 
         //Load document
@@ -62,15 +62,20 @@ module.exports = class GameResult{
         try{
             //Get last match datas of the first summoner of the match
             const matchId = await tft.Match.matchesByName(encodeURI(cellSummonerName.value), 1)
-            const matchData = await tft.Match.matchesByMatchId(matchId[0])
+            if(!matchIdChecked.includes(matchId)){
+                matchIdChecked.push(matchId)
+                const matchData = await tft.Match.matchesByMatchId(matchId[0])
     
-            //Get names of all summoners in the match
-            for await(let player of matchData.info.participants){
-                const summoner = await tft.Summoner.summonerByPuuid(player.puuid)
-                //Add to the array name of the player and placement in the match
-                players.push({name: summoner.name, score:player.placement})
+                //Get names of all summoners in the match
+                for await(let player of matchData.info.participants){
+                    const summoner = await tft.Summoner.summonerByPuuid(player.puuid)
+                    //Add to the array name of the player and placement in the match
+                    players.push({name: summoner.name, score:player.placement})
+                }
             }
-        }catch(err){}
+        }catch(err){
+            console.log(err)
+        }
         
         //Place placement corresponding to the player
         if(players.length > 0){
@@ -86,6 +91,6 @@ module.exports = class GameResult{
         }
 
         console.log(`EXIT: importByMatch()`)
-        return lineColumnByGame.get(matchNb).name
+        return {name: lineColumnByGame.get(matchNb).name, list: matchIdChecked}
     }
 }
