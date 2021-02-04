@@ -79,7 +79,7 @@ bot.on('ready', function(){
 /**
  * Cron triggered all Thursday at 19h00
  */
-cron.schedule(`0 19 * * 4`, async function() {
+cron.schedule(`0 19 * * 5`, async function() {
     const channel = await bot.channels.fetch(channelsId.gestion)
     startTournament(channel)
 }, {timezone: "Europe/Paris"})
