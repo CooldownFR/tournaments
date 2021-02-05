@@ -39,8 +39,8 @@ module.exports = class CheckedIn{
 
             //Check if the players are checked in or not
             for await(let data of datas){
-                let riotName = data.players[0].inGameName ? data.players[0].inGameName : ""
-                let discordName = data.customFields[0].value ? data.customFields[0].value : ""
+                let riotName = data.players[0] ? data.players[0].inGameName : ""
+                let discordName = data.customFields[0] ? data.customFields[0].value : ""
                 if(data.checkedInAt){
                     playersChecked.push({riotName: riotName, discordName: discordName, checkIn: data.checkedInAt})
                 }else{
