@@ -177,7 +177,8 @@ bot.on('message', async function(message){
     }else if(message.content == "/tournoi-final"){
         GeneratePools.generateFinal(doc)
     }else if(message.content.startsWith("/tournoi-game ")){
-        GameResult.importByMatch(doc, parseInt(message.content.split(" ")[1]))
+        const response = GameResult.importByMatch(doc, parseInt(message.content.split(" ")[1]), matchIdChecked)
+        matchIdChecked = response.list
     }
 })
 
