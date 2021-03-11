@@ -65,12 +65,14 @@ module.exports = class GameResult{
             if(!matchIdChecked.includes(matchId)){
                 matchIdChecked.push(matchId)
                 const matchData = await tft.Match.matchesByMatchId(matchId[0])
-    
-                //Get names of all summoners in the match
-                for await(let player of matchData.info.participants){
-                    const summoner = await tft.Summoner.summonerByPuuid(player.puuid)
-                    //Add to the array name of the player and placement in the match
-                    players.push({name: summoner.name, score:player.placement})
+
+                if(matchData.info.queue_id == 1090 && new Date() - new Date(matchData.info.game_datetime) < 1800000){
+                    //Get names of all summoners in the match
+                    for await(let player of matchData.info.participants){
+                        const summoner = await tft.Summoner.summonerByPuuid(player.puuid)
+                        //Add to the array name of the player and placement in the match
+                        players.push({name: summoner.name, score:player.placement})
+                    }
                 }
             }
         }catch(err){
