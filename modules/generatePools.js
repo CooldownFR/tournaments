@@ -61,7 +61,7 @@ module.exports = class GeneratePools{
         //Only keep the first 32 players
         players.splice(32)
         //Determine the number of pools
-        const nbPools = Math.round(players.length/8)
+        const nbPools = Math.floor(players.length / 8) + (players.length % 8 == 0 ? 0 : 1)
         //Randomize order of the players
         players.shuffle()
 
@@ -71,15 +71,15 @@ module.exports = class GeneratePools{
         await sheet.loadCells()
 
         //Place players in each pools one by one
-        let pool = 1
+        let pool = 0
         let line = 9
         for await(let player of players){
-            const column = 4 * pool - 3
+            const column = 4 * (pool + 1) - 3
             let cell = sheet.getCell(line, column)
             cell.value = player.riotName
 
-            pool = pool%nbPools+1
-            if(pool==1) line++
+            pool = (pool + 1) % nbPools
+            if(pool == 0) line++
         }
         //Save updated document
         await sheet.saveUpdatedCells()
