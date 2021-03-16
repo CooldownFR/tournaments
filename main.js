@@ -89,9 +89,9 @@ cron.schedule(`0 19 * * 5`, async function() {
  */
 async function startTournament(channel){
     //If there is a tournament ID
-    if(!await CheckedIn.canCheckIn(doc)) return
+    if(!await CheckedIn.canCheckIn()) return
 
-    MsgNotif.generateCheckInMessage(bot, doc)
+    MsgNotif.generateCheckInMessage(bot)
 
     //Reset the variables
     phaseNb = 0
@@ -202,7 +202,7 @@ bot.on("messageReactionAdd", async function(reaction, user){
         if(phaseNb == 0){
             //Generate the initial pools and remove the auto-checkin
             await GeneratePools.generateInit(doc, players)
-            MsgNotif.generatePoolsMessage(bot, doc)
+            MsgNotif.generatePoolsMessage(bot)
             clearInterval(checkInLoop)
         }else if(phaseNb == 1){
             //Generate the demis

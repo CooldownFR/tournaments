@@ -1,4 +1,5 @@
 const Battlefy = require('battlefy-api')
+const axios = require('axios')
 
 /**
  * This method will organize the array by putting player who checkedin first at the beggining
@@ -7,6 +8,19 @@ Array.prototype.orderByDate = function(){
     this.sort(function(a, b){
         return new Date(a.checkIn) - new Date(b.checkIn)
     })
+}
+
+async function getBattlefyId(){
+    const response = await axios.get("https://dtmwra1jsgyb0.cloudfront.net/organizations/5880c1d568b4923b03d60b17/tournaments")
+    for(let i=response.datas.length-1 ; i>=0 ; i--){
+        const tournament = response.datas[i]
+        console.log(tournament)
+        if(tournament.isPublic && tournament.isPublished && (new Date(tournament.startTime).isSameDay(new Date())) && tournament.gameId == "5d153eb296a540140d92221f"){
+            console.log(`LOG: Found ${tournament["_id"]}`)
+            return tournament["_id"]
+        }
+    }
+    return null
 }
 
 /**
@@ -27,8 +41,7 @@ module.exports = class CheckedIn{
         await checkInSheet.loadCells()
 
         //Get tournament id
-        const cellId = checkInSheet.getCell(0, 6)
-        const id = cellId.value
+        const id = await getBattlefyId()
 
         let playersChecked = new Array()
         let playersNoCheck = new Array()
@@ -99,21 +112,15 @@ module.exports = class CheckedIn{
         return playersChecked
     }
 
-    static async canCheckIn(doc){
-        console.log(`ENTER: canCheckIn()`)
-
-        //Load document
-        await doc.loadInfo()
-        const checkInSheet = doc.sheetsByTitle["Participants"]
-        await checkInSheet.loadCells()
-
-        //Get tournament id
-        const cellId = checkInSheet.getCell(0, 6)
-        if(!cellId.value){
-            console.log("LOG: No tournament ID specified")
+    static async canCheckIn(){
+        const response = await axios.get("https://dtmwra1jsgyb0.cloudfront.net/organizations/5880c1d568b4923b03d60b17/tournaments")
+        for(let i=response.datas.length-1 ; i>=0 ; i--){
+            const tournament = response.datas[i]
+            if(tournament.isPublic && tournament.isPublished && (new Date(tournament.startTime).isSameDay(new Date())) && tournament.gameId == "5d153eb296a540140d92221f"){
+                return true
+            }
         }
-
-        console.log(`EXIT: canCheckIn()`)
-        return cellId.value
+        console.log("LOG: No CheckIn for today...")
+        return false
     }
 }
