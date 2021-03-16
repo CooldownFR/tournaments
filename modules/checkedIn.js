@@ -12,7 +12,7 @@ Array.prototype.orderByDate = function(){
 
 async function getBattlefyId(){
     const response = await axios.get("https://dtmwra1jsgyb0.cloudfront.net/organizations/5880c1d568b4923b03d60b17/tournaments")
-    for(let i=response.data.length-1 ; i>=0 ; i--){
+    for(let i=response.data.length ; i>=0 ; i--){
         const tournament = response.data[i]
         if(tournament.isPublic && tournament.isPublished && /*(new Date(tournament.startTime).isSameDay(new Date())) &&*/ tournament.gameId == "5d153eb296a540140d92221f"){
             console.log(`LOG: Found ${tournament["_id"]}`)
