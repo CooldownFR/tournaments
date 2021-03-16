@@ -10,6 +10,10 @@ Array.prototype.orderByDate = function(){
     })
 }
 
+Date.prototype.isSameDay = function(otherDate){
+    return this.getFullYear() == otherDate.getFullYear() && this.getMonth() == otherDate.getMonth() && this.getDate() == otherDate.getDate()
+}
+
 async function getBattlefyId(){
     const response = await axios.get("https://dtmwra1jsgyb0.cloudfront.net/organizations/5880c1d568b4923b03d60b17/tournaments")
     for(let i=response.data.length-1 ; i>=0 ; i--){
