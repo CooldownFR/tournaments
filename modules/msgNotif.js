@@ -1,6 +1,5 @@
 const Battlefy = require('battlefy-api')
 const Discord = require('discord.js')
-const axios = require('axios')
 
 /**
  * Some const for IDs in discord
@@ -10,20 +9,15 @@ const channelsId = {
     tftFlood: "591856700009742348"
 }
 
-Date.prototype.isSameDay = function(otherDate){
-    return this.getFullYear() == otherDate.getFullYear() && this.getMonth() == otherDate.getMonth() && this.getDate() == otherDate.getDate()
-}
+async function getBattlefyId(doc){
+    //Load document
+    await doc.loadInfo()
+    const checkInSheet = doc.sheetsByTitle["Participants"]
+    await checkInSheet.loadCells()
 
-async function getBattlefyId(){
-    const response = await axios.get("https://dtmwra1jsgyb0.cloudfront.net/organizations/5880c1d568b4923b03d60b17/tournaments")
-    for(let i=response.data.length-1 ; i>=0 ; i--){
-        const tournament = response.data[i]
-        if(tournament.isPublic && tournament.isPublished && (new Date(tournament.startTime).isSameDay(new Date())) && tournament.gameID == "5d153eb296a540140d92221f"){
-            console.log(`LOG: Found ${tournament["_id"]}`)
-            return tournament["_id"]
-        }
-    }
-    return null
+    //Get tournament id
+    const cellId = checkInSheet.getCell(0, 6)
+    return cellId.value
 }
 
 /**
@@ -36,8 +30,8 @@ module.exports = class MsgNotif{
      * @param {*} bot 
      * @param {*} doc 
      */
-    static async generateCheckInMessage(bot){
-        const id = await getBattlefyId()
+    static async generateCheckInMessage(bot, doc){
+        const id = await getBattlefyId(doc)
         const datas = await Battlefy.getTournamentData(id)
         const url = `https://battlefy.com/cooldowntv/${datas.slug}/${id}/info`
         const embed = new Discord.MessageEmbed()
@@ -57,8 +51,9 @@ module.exports = class MsgNotif{
      * @param {*} bot 
      * @param {*} doc 
      */
-    static async generatePoolsMessage(bot){
-        const datas = await Battlefy.getTournamentData(await getBattlefyId())
+    static async generatePoolsMessage(bot, doc){
+        const id = await getBattlefyId(doc)
+        const datas = await Battlefy.getTournamentData(id)
         const url = "https://docs.google.com/spreadsheets/d/15xow2CpBy9Q5MZuDEarpQX88G-teRRpVoqV3x3lMzzs"
         const embed = new Discord.MessageEmbed()
             .setTitle(datas.name)
