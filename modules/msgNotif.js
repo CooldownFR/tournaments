@@ -37,7 +37,8 @@ module.exports = class MsgNotif{
      * @param {*} doc 
      */
     static async generateCheckInMessage(bot){
-        const datas = await Battlefy.getTournamentData(await getBattlefyId())
+        const id = await getBattlefyId()
+        const datas = await Battlefy.getTournamentData(id)
         const url = `https://battlefy.com/cooldowntv/${datas.slug}/${id}/info`
         const embed = new Discord.MessageEmbed()
             .setTitle(datas.name)
