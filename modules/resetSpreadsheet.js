@@ -35,7 +35,7 @@ module.exports = class ResetSpreadsheet{
 
         for(let line=0 ; line<8 ; line++){
             //Reset of qualif
-            for(let column=1 ; column <=13 ; column+=4){
+            for(let column=1 ; column <=17 ; column+=4){
                 let cellName1 = standingSheet.getCell(line+9, column)
                 cellName1.value = ""
                 let cellScore1 = standingSheet.getCell(line+9, column+2)

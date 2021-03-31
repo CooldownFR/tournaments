@@ -121,6 +121,7 @@ module.exports = class MsgGestion{
                 .then(() => message.react("🇧"))
                 .then(() => message.react("🇨"))
                 .then(() => message.react("🇩"))
+                .then(() => message.react("🇪"))
                 .then(() => message.react("➡️"))
                 return
             case 2:

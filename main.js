@@ -242,22 +242,25 @@ bot.on("messageReactionAdd", async function(reaction, user){
         MsgGestion.editMessageFooter(reaction.message, "CheckIn Ok !")
     }else if(reaction.emoji.name == "⬇️" && phaseNb == 3){
         //THis arrow is used to get the results of the final match
-        getMatch(reaction.message, 13)
+        getMatch(reaction.message, 15)
     }else if(phaseNb == 1){
         //Switch to get the good game nb during the qualif phase
         let matchNb
         switch(reaction.emoji.name){
             case "🇦":
-                matchNb = !matchChecked.includes(1) ? 1 : 5
+                matchNb = !matchChecked.includes(1) ? 1 : 6
                 break
             case "🇧":
-                matchNb = !matchChecked.includes(2) ? 2 : 6
+                matchNb = !matchChecked.includes(2) ? 2 : 7
                 break
             case "🇨":
-                matchNb = !matchChecked.includes(3) ? 3 : 7
+                matchNb = !matchChecked.includes(3) ? 3 : 8
                 break
             case "🇩":
-                matchNb = !matchChecked.includes(4) ? 4 : 8
+                matchNb = !matchChecked.includes(4) ? 4 : 9
+                break
+            case "🇪":
+                matchNb = !matchChecked.includes(5) ? 5 : 10
                 break
         }
         getMatch(reaction.message, matchNb)
@@ -266,10 +269,10 @@ bot.on("messageReactionAdd", async function(reaction, user){
         let matchNb
         switch(reaction.emoji.name){
             case "🇦":
-                matchNb = !matchChecked.includes(9) ? 9 : 11
+                matchNb = !matchChecked.includes(9) ? 11 : 13
                 break
             case "🇧":
-                matchNb = !matchChecked.includes(10) ? 10 : 12
+                matchNb = !matchChecked.includes(10) ? 12 : 14
                 break
         }
         getMatch(reaction.message, matchNb)

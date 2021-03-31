@@ -58,8 +58,8 @@ module.exports = class GeneratePools{
     static async generateInit(doc, players){
         console.log(`ENTER: generateInit()`)
 
-        //Only keep the first 32 players
-        players.splice(32)
+        //Only keep the first 40 players
+        players.splice(40)
         //Determine the number of pools
         const nbPools = Math.floor(players.length / 8) + (players.length % 8 == 0 ? 0 : 1)
         //Randomize order of the players
@@ -102,7 +102,7 @@ module.exports = class GeneratePools{
         await sheet.loadCells()
 
         //Check for result of initial pools
-        for(let pool=1 ; pool<=4 ; pool++){
+        for(let pool=1 ; pool<=5 ; pool++){
             for(let cpt=0 ; cpt<8 ; cpt++){
                 const column = 4 * pool - 3
                 const line = 35 + cpt
