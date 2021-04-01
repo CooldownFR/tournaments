@@ -269,10 +269,10 @@ bot.on("messageReactionAdd", async function(reaction, user){
         let matchNb
         switch(reaction.emoji.name){
             case "🇦":
-                matchNb = !matchChecked.includes(9) ? 11 : 13
+                matchNb = !matchChecked.includes(11) ? 11 : 13
                 break
             case "🇧":
-                matchNb = !matchChecked.includes(10) ? 12 : 14
+                matchNb = !matchChecked.includes(12) ? 12 : 14
                 break
         }
         getMatch(reaction.message, matchNb)
