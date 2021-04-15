@@ -150,15 +150,14 @@ module.exports = class GeneratePools{
         let line = 54
         const column = 13
         for(let i=0 ; i<(thirdDemi ? 24 : 16) ; i++){
-            if(!thirdDemi && (line+1)%3 == 0){
-                line++
-            }else{
-                let cellName = sheet.getCell(line, column)
-                let cellPoints = sheet.getCell(line, column + 2)
-                cellName.value = players[i].name
-                cellPoints.value = players[i].points * 0.5
+            if(!thirdDemi && (i+1)%3 == 0){
                 line++
             }
+            let cellName = sheet.getCell(line, column)
+            let cellPoints = sheet.getCell(line, column + 2)
+            cellName.value = players[i].name
+            cellPoints.value = players[i].points * 0.5
+            line++
         }
         //Save updated document
         await sheet.saveUpdatedCells()
