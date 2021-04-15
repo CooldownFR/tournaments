@@ -242,25 +242,28 @@ bot.on("messageReactionAdd", async function(reaction, user){
         MsgGestion.editMessageFooter(reaction.message, "CheckIn Ok !")
     }else if(reaction.emoji.name == "⬇️" && phaseNb == 3){
         //THis arrow is used to get the results of the final match
-        getMatch(reaction.message, 15)
+        getMatch(reaction.message, 19)
     }else if(phaseNb == 1){
         //Switch to get the good game nb during the qualif phase
         let matchNb
         switch(reaction.emoji.name){
             case "🇦":
-                matchNb = !matchChecked.includes(1) ? 1 : 6
+                matchNb = !matchChecked.includes(1) ? 1 : 7
                 break
             case "🇧":
-                matchNb = !matchChecked.includes(2) ? 2 : 7
+                matchNb = !matchChecked.includes(2) ? 2 : 8
                 break
             case "🇨":
-                matchNb = !matchChecked.includes(3) ? 3 : 8
+                matchNb = !matchChecked.includes(3) ? 3 : 9
                 break
             case "🇩":
-                matchNb = !matchChecked.includes(4) ? 4 : 9
+                matchNb = !matchChecked.includes(4) ? 4 : 10
                 break
             case "🇪":
-                matchNb = !matchChecked.includes(5) ? 5 : 10
+                matchNb = !matchChecked.includes(5) ? 5 : 11
+                break
+            case "🇫":
+                matchNb = !matchChecked.includes(6) ? 6 : 12
                 break
         }
         getMatch(reaction.message, matchNb)
@@ -269,10 +272,13 @@ bot.on("messageReactionAdd", async function(reaction, user){
         let matchNb
         switch(reaction.emoji.name){
             case "🇦":
-                matchNb = !matchChecked.includes(11) ? 11 : 13
+                matchNb = !matchChecked.includes(13) ? 13 : 16
                 break
             case "🇧":
-                matchNb = !matchChecked.includes(12) ? 12 : 14
+                matchNb = !matchChecked.includes(14) ? 14 : 17
+                break
+            case "🇨":
+                matchNb = !matchChecked.includes(15) ? 15 : 18
                 break
         }
         getMatch(reaction.message, matchNb)

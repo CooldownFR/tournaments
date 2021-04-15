@@ -13,16 +13,20 @@ lineColumnByGame.set(2,  {line:9,  column:5,    name: "PB G1"})
 lineColumnByGame.set(3,  {line:9,  column:9,    name: "PC G1"})
 lineColumnByGame.set(4,  {line:9,  column:13,   name: "PD G1"})
 lineColumnByGame.set(5,  {line:9,  column:17,   name: "PE G1"})
-lineColumnByGame.set(6,  {line:23, column:1,    name: "PA G2"})
-lineColumnByGame.set(7,  {line:23, column:5,    name: "PB G2"})
-lineColumnByGame.set(8,  {line:23, column:9,    name: "PC G2"})
-lineColumnByGame.set(9,  {line:23, column:13,   name: "PD G2"})
-lineColumnByGame.set(10, {line:23, column:17,   name: "PE G2"})
-lineColumnByGame.set(11, {line:51, column:1,    name: "PA G1"})
-lineColumnByGame.set(12, {line:51, column:5,    name: "PB G1"})
-lineColumnByGame.set(13, {line:65, column:1,    name: "PA G2"})
-lineColumnByGame.set(14, {line:65, column:5,    name: "PB G2"})
-lineColumnByGame.set(15, {line:93, column:3,    name: "Final"})
+lineColumnByGame.set(6,  {line:9,  column:21,   name: "PF G1"})
+lineColumnByGame.set(7,  {line:23, column:1,    name: "PA G2"})
+lineColumnByGame.set(8,  {line:23, column:5,    name: "PB G2"})
+lineColumnByGame.set(9,  {line:23, column:9,    name: "PC G2"})
+lineColumnByGame.set(10, {line:23, column:13,   name: "PD G2"})
+lineColumnByGame.set(11, {line:23, column:17,   name: "PE G2"})
+lineColumnByGame.set(12, {line:23, column:21,   name: "PF G2"})
+lineColumnByGame.set(13, {line:51, column:1,    name: "PA G1"})
+lineColumnByGame.set(14, {line:51, column:5,    name: "PB G1"})
+lineColumnByGame.set(15, {line:51, column:9,    name: "PC G1"})
+lineColumnByGame.set(16, {line:65, column:1,    name: "PA G2"})
+lineColumnByGame.set(17, {line:65, column:5,    name: "PB G2"})
+lineColumnByGame.set(18, {line:65, column:9,    name: "PC G2"})
+lineColumnByGame.set(19, {line:93, column:3,    name: "Final"})
 
 /**
  * Get element of an array by the .name
@@ -50,7 +54,7 @@ module.exports = class GameResult{
 
         //Load document
         await doc.loadInfo()
-        const sheet = doc.sheetsByTitle["Standing 32"]
+        const sheet = doc.sheetsById["94998215"]
         await sheet.loadCells()
 
         //Get line and column of the match

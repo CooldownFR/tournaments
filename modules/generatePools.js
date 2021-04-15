@@ -59,7 +59,11 @@ module.exports = class GeneratePools{
         console.log(`ENTER: generateInit()`)
 
         //Only keep the first 40 players
-        players.splice(40)
+        if(players.lenght > 41){
+            players.splice(48)
+        }else{
+            players.splice(40)
+        }
         //Determine the number of pools
         const nbPools = Math.floor(players.length / 8) + (players.length % 8 == 0 ? 0 : 1)
         //Randomize order of the players
@@ -67,7 +71,7 @@ module.exports = class GeneratePools{
 
         //Load document
         await doc.loadInfo()
-        const sheet = doc.sheetsByTitle["Standing 32"]
+        const sheet = doc.sheetsById["94998215"]
         await sheet.loadCells()
 
         //Place players in each pools one by one
@@ -98,11 +102,11 @@ module.exports = class GeneratePools{
 
         //Load document
         await doc.loadInfo()
-        const sheet = doc.sheetsByTitle["Standing 32"]
+        const sheet = doc.sheetsById["94998215"]
         await sheet.loadCells()
 
         //Check for result of initial pools
-        for(let pool=1 ; pool<=5 ; pool++){
+        for(let pool=1 ; pool<=6 ; pool++){
             for(let cpt=0 ; cpt<8 ; cpt++){
                 const column = 4 * pool - 3
                 const line = 35 + cpt
@@ -118,14 +122,16 @@ module.exports = class GeneratePools{
         players.shuffle()
         players.order()
 
+        const thirdDemi = players.length > 40
+
         //Check if there is a critical point of equality
         let playersToReorder = new Array()
-        if(players[15].points == players[16].points){
+        if((!thirdDemi && players[15].points == players[16].points) || (thirdDemi && players[23].points == players[24].points)){
             let cpt = 0
             let equalityPos
             //Get all the players of the equality
             for await(let player of players){
-                if(player.points == players[15].points){
+                if((!thirdDemi && player.points == players[15].points) || (!thirdDemi && player.points == players[23].points)){
                     if(!equalityPos) equalityPos = cpt
                     playersToReorder.push(player)
                 }
@@ -142,12 +148,16 @@ module.exports = class GeneratePools{
 
         //Place players in each pools of demis one by one
         let line = 54
-        const column = 11
-        for(let i=0 ; i<16 ; i++){
-            let cellName = sheet.getCell(line, column)
-            let cellPoints = sheet.getCell(line, column + 2)
-            cellName.value = players[i].name
-            cellPoints.value = players[i].points * 0.5
+        const column = 13
+        for(let i=0 ; i<(thirdDemi ? 24 : 16) ; i++){
+            if(!thirdDemi && (i+1)%3 == 0){
+                line++
+            }else{
+                let cellName = sheet.getCell(line, column)
+                let cellPoints = sheet.getCell(line, column + 2)
+                cellName.value = players[i].name
+                cellPoints.value = players[i].points * 0.5
+            }
             line++
         }
         //Save updated document
@@ -172,18 +182,20 @@ module.exports = class GeneratePools{
 
         //Load document
         await doc.loadInfo()
-        const sheet = doc.sheetsByTitle["Standing 32"]
+        const sheet = doc.sheetsById["94998215"]
         await sheet.loadCells()
 
         //Check for result of initial pools
         let column = 11
-        for(let i=0 ; i<16 ; i++){
+        for(let i=0 ; i<24 ; i++){
             const line = 54 + i
             const cellName = sheet.getCell(line, column)
             const cellPoints = sheet.getCell(line, column + 4)
             const cellTop32 = sheet.getCell(line, column + 2)
             const cellTop16 = sheet.getCell(line, column + 3)
-            players.push({name: cellName.value, points: cellPoints.value, top32: cellTop32.value, top16: cellTop16.value})
+            if(cellName.value && cellName.value != ""){
+                players.push({name: cellName.value, points: cellPoints.value, top32: cellTop32.value, top16: cellTop16.value})
+            }
         }
         players.order()
 

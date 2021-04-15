@@ -23,7 +23,7 @@ module.exports = class CheckedIn{
 
         //Load document
         await doc.loadInfo()
-        const checkInSheet = doc.sheetsByTitle["Participants"]
+        const checkInSheet = doc.sheetsById["863642533"]
         await checkInSheet.loadCells()
 
         //Get tournament id
@@ -104,7 +104,7 @@ module.exports = class CheckedIn{
 
         //Load document
         await doc.loadInfo()
-        const checkInSheet = doc.sheetsByTitle["Participants"]
+        const checkInSheet = doc.sheetsById["863642533"]
         await checkInSheet.loadCells()
 
         //Get tournament id

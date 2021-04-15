@@ -17,27 +17,30 @@ phases.set(0, {
 })
 phases.set(1, {
     name: "Qualifs",
-    description: "La phase de qualification (Top32) a démarré et les poules ont été générées !",
+    description: "La phase 1 de qualification a démarré et les poules ont été générées !",
     fields: new Array(
         ":regional_indicator_a: récupérer le résultat de la poule A",
         ":regional_indicator_b: récupérer le résultat de la poule B",
         ":regional_indicator_c: récupérer le résultat de la poule C",
         ":regional_indicator_d: récupérer le résultat de la poule D",
+        ":regional_indicator_e: récupérer le résultat de la poule E",
+        ":regional_indicator_f: récupérer le résultat de la poule F",
         "➡️ terminer la phase des qualifs et générer les demis"
     )
 })
 phases.set(2, {
     name: "Demis",
-    description: "La phase des demis-finales (Top16) a démarré et le seeding a été effectué !",
+    description: "La phase 2 des demis-finales a démarré et le seeding a été effectué !",
     fields: new Array(
         ":regional_indicator_a: récupérer le résultat de la demi A",
         ":regional_indicator_b: récupérer le résultat de la demi B",
+        ":regional_indicator_c: récupérer le résultat de la poule C",
         "➡️ terminer la phase des demis et générer la finale"
     )
 })
 phases.set(3, {
     name: "Finale",
-    description: "La phase de la finale (Top8) a démarré !",
+    description: "La phase 3 de la finale a démarré !",
     fields: new Array(
         "⬇️ récupérer le résultat de la finale",
         "➡️ terminer le tournoi"
@@ -122,11 +125,13 @@ module.exports = class MsgGestion{
                 .then(() => message.react("🇨"))
                 .then(() => message.react("🇩"))
                 .then(() => message.react("🇪"))
+                .then(() => message.react("🇫"))
                 .then(() => message.react("➡️"))
                 return
             case 2:
                 message.react("🇦")
                 .then(() => message.react("🇧"))
+                .then(() => message.react("🇨"))
                 .then(() => message.react("➡️"))
                 return
             case 3:

@@ -7,9 +7,9 @@ module.exports = class ResetSpreadsheet{
         console.log(`ENTER: reset()`)
 
         await doc.loadInfo()
-        const checkInSheet = doc.sheetsByTitle["Participants"]
+        const checkInSheet = doc.sheetsById["863642533"]
         await checkInSheet.loadCells()
-        const standingSheet = doc.sheetsByTitle["Standing 32"]
+        const standingSheet = doc.sheetsById["94998215"]
         await standingSheet.loadCells()
 
         let endOfLoop = false
@@ -35,7 +35,7 @@ module.exports = class ResetSpreadsheet{
 
         for(let line=0 ; line<8 ; line++){
             //Reset of qualif
-            for(let column=1 ; column <=17 ; column+=4){
+            for(let column=1 ; column <=21 ; column+=4){
                 let cellName1 = standingSheet.getCell(line+9, column)
                 cellName1.value = ""
                 let cellScore1 = standingSheet.getCell(line+9, column+2)
@@ -44,19 +44,19 @@ module.exports = class ResetSpreadsheet{
                 cellScore2.value = ""
             }
             //Reset of demis
-            for(let column=1 ; column <=5 ; column+=4){
+            for(let column=1 ; column <=9 ; column+=4){
                 let cellScoreDemis1 = standingSheet.getCell(line+51, column+2)
                 cellScoreDemis1.value = ""
                 let cellScoreDemis2 = standingSheet.getCell(line+65, column+2)
                 cellScoreDemis2.value = ""
             }
-            let cellNameDemis1 = standingSheet.getCell(line+54, 11)
+            let cellNameDemis1 = standingSheet.getCell(line+54, 13)
             cellNameDemis1.value = ""
-            let cellPointsDemis1 = standingSheet.getCell(line+54, 13)
+            let cellPointsDemis1 = standingSheet.getCell(line+54, 15)
             cellPointsDemis1.value = ""
-            let cellNameDemis2 = standingSheet.getCell(line+62, 11)
+            let cellNameDemis2 = standingSheet.getCell(line+62, 13)
             cellNameDemis2.value = ""
-            let cellPointsDemis2 = standingSheet.getCell(line+62, 13)
+            let cellPointsDemis2 = standingSheet.getCell(line+62, 15)
             cellPointsDemis2.value = ""
             //Reset of final
             let cellNameFinal = standingSheet.getCell(line+106, 3)
