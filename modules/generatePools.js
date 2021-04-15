@@ -185,7 +185,7 @@ module.exports = class GeneratePools{
         await sheet.loadCells()
 
         //Check for result of initial pools
-        let column = 11
+        let column = 13
         for(let i=0 ; i<24 ; i++){
             const line = 54 + i
             const cellName = sheet.getCell(line, column)
