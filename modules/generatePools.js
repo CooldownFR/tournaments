@@ -157,8 +157,8 @@ module.exports = class GeneratePools{
                 let cellPoints = sheet.getCell(line, column + 2)
                 cellName.value = players[i].name
                 cellPoints.value = players[i].points * 0.5
+                line++
             }
-            line++
         }
         //Save updated document
         await sheet.saveUpdatedCells()
