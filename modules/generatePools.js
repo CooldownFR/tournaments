@@ -131,7 +131,7 @@ module.exports = class GeneratePools{
             let equalityPos
             //Get all the players of the equality
             for await(let player of players){
-                if((!thirdDemi && player.points == players[15].points) || (!thirdDemi && player.points == players[23].points)){
+                if((!thirdDemi && player.points == players[15].points) || (thirdDemi && player.points == players[23].points)){
                     if(!equalityPos) equalityPos = cpt
                     playersToReorder.push(player)
                 }
