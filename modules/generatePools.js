@@ -126,7 +126,7 @@ module.exports = class GeneratePools{
 
         //Check if there is a critical point of equality
         let playersToReorder = new Array()
-        if((!thirdDemi && players[15].points == players[16].points) || (thirdDemi && players[23].points == players[24].points)){
+        if(players.length >= 16 && (!thirdDemi && players[15].points == players[16].points) || (thirdDemi && players[23].points == players[24].points)){
             let cpt = 0
             let equalityPos
             //Get all the players of the equality

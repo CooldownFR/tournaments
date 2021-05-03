@@ -284,3 +284,10 @@ bot.on("messageReactionAdd", async function(reaction, user){
         getMatch(reaction.message, matchNb)
     }
 })
+
+/**
+ * To avoid crashes
+ */
+ process.on('uncaughtException', (err) => {
+    console.log(err)
+})
