@@ -150,6 +150,7 @@ module.exports = class GeneratePools{
         let line = 54
         const column = 13
         for(let i=0 ; i<(thirdDemi ? 24 : 16) ; i++){
+            if (!players[i]) continue
             if(!thirdDemi && (line+1)%3 == 0){
                 line++
             }
@@ -212,6 +213,7 @@ module.exports = class GeneratePools{
         let line = 106
         column = 3
         for(let i=0 ; i<8 ; i++){
+            if (!players[i]) continue
             let cellName = sheet.getCell(line, column)
             let cellTop32 = sheet.getCell(line, column + 2)
             let cellTop16 = sheet.getCell(line, column + 3)
