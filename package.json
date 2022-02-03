@@ -1,0 +1,16 @@
+{
+    "name": "cooldown-tournaments",
+    "version": "1.0.0",
+    "description": "NodeJS app for Cooldown Tournaments.",
+    "main": "./lib/CooldownTournament.js",
+    "repository": "",
+    "author": "Lucas Petitjean",
+    "engines": {
+        "node": ">=14.0.0"
+    },
+    "dependencies": {
+        "battlefy-api": "1.1.0",
+        "google-spreadsheet": "3.1.15",
+        "riotgames-gg": "0.0.7"
+    }
+}
