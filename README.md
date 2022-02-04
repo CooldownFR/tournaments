@@ -196,6 +196,9 @@ Regarding rounds feel free to fill only the ones you need to use.
 
 ### Methods
 ```JavaScript
+// Retrive the number of players. From checked-in sheet.
+Tournament.playersCount().then(console.log).catch(console.error);
+
 // Reset the sheet. A list of Discord usernames + # is returned on success.
 Tournament.reset().then(console.log).catch(console.error);
 
