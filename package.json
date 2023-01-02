@@ -1,5 +1,5 @@
 {
-    "name": "cooldown-tournaments",
+    "name": "tournaments",
     "version": "1.0.0",
     "description": "NodeJS app for Cooldown Tournaments.",
     "main": "./lib/CooldownTournament.js",
