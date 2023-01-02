@@ -7,12 +7,12 @@ This module is an adaptation from [Floliroy/CooldownCupBot](https://github.com/F
 # Installation
 **Node.JS 14.0.0 or newer is required.**
 ```
-npm install MushAsterion/cooldown-tournaments
+npm install CooldownFR/tournaments
 ```
 
 # Initialization
 ```JavaScript
-const CooldownTournament = require('cooldown-tournament');
+const CooldownTournament = require('tournaments');
 const Tournament = new CooldownTournament({
     'google_account': {
         'client_email': '',
