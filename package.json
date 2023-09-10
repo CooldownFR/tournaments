@@ -9,7 +9,7 @@
         "node": ">=14.0.0"
     },
     "dependencies": {
-        "battlefy-api": "1.1.0",
+        "battlefy-api": "github:guilherssousa/battlefy-api",
         "google-spreadsheet": "3.1.15",
         "riotgames-gg": "0.0.7"
     }
